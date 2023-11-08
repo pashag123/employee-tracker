@@ -34,4 +34,4 @@ const fs = require('fs');
 
 
 
-module.exports 
+module.exports = startApp;

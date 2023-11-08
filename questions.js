@@ -40,9 +40,34 @@ async function addRole() {
 
 
 async function addDepartment() {
-    const {departments_title, } = await prompt ([
+   
+    const {department_title, } = await prompt ([
         {
-
+type: 'input',
+name: 'department',
+message: 'what is the name of the department you are trying to add?'
         }
     ])
+    await db.query(
+        "INSERT INTO department (name) VALUES ?",
+        [department_title]
+    );
+    console.log('the new Department was succesfully added!')
+}
+
+
+async function addEmployee() {
+    const {first_name, } = await prompt ([
+        {
+            type: "input",
+            name: "first_name",
+            message: "please enter your first name"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "please enter your last name"
+        }
+    ])
+    
 }
