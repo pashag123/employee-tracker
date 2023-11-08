@@ -8,7 +8,7 @@ USE employee_tracker_db;
 
 CREATE TABLE department (
     id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(30) NOT NULL,
+    department_name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -28,6 +28,6 @@ CREATE TABLE employee (
     role_id INT,
     manager_id INT,
     PRIMARY KEY (id),
-    FOREIGN KEY (role_id) REFERENCES role(id)
+    FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE SET NULL
 );
 

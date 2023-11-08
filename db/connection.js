@@ -7,7 +7,7 @@ const db = mysql.createConnection({
     // Your MySQL username,
     user: "root",
 
-    database: "employee_tracker",
+    database: "employee_tracker_db",
 });
 
 db.on("error", (err) => {
