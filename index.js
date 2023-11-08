@@ -168,7 +168,7 @@ async function updateEmployee() {
         },
     ])
     await db.query(
-        ""
+        "update employee set role_id = ? where id = ? ", [answers.role, answers.employeeChoice]
     )
     console.log("employee updated")
     startApp();
