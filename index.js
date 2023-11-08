@@ -26,10 +26,18 @@ function startApp() {
             switch (answers.tableChoice) {
                 case 'view all departments':
                     break;
-                
-                    case "add a role":
+
+                case "add a role":
                     addRole()
                     break;
+
+                    case 'add a department':
+                        addDepartment()
+                        break;
+
+                        case 'add an employee':
+                            addEmployee()
+                            break;
 
 
 
@@ -69,7 +77,8 @@ async function addRole() {
         [role_title, role_salary, dept_id]
     );
     console.log("The new role was successfully added.");
-   
+    startApp()
+
 }
 
 
@@ -96,9 +105,10 @@ async function addEmployee() {
         "select id as value, concat(first_name, ' ', last_name) as name from employee"
     );
     let roleList = await db.query(
-        "select id as value, title as role_name from role"
-    )
-    const { first_name, last_name, } = await prompt([
+        "select id as value, title as name from role"
+    );
+    managers = [{ value: null, name: "No Manager" }, ...managers];
+    let answers = await prompt([
         {
             type: "input",
             name: "first_name",
@@ -108,9 +118,27 @@ async function addEmployee() {
             type: "input",
             name: "last_name",
             message: "please enter your last name"
-        }
+        },
+        {
+            type: "list",
+            name: "role",
+            message: "What role does the employee have?",
+            choices: roleList
+        },
+        {
+            type: "list",
+            name: "manager",
+            message: "who is the employees manager?",
+            choices: managers
+        },
+    
+       
     ])
-
+    await db.query(
+        "insert into employee (first_name, last_name, role_id, manager_id) values(?, ?, ?, ?)", [answers.first_name, answers.last_name, answers.role, answers.manager]
+    )
+console.log("the employee has been succesfully added")
+startApp()
 }
 
 startApp();
