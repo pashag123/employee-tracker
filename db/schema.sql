@@ -27,3 +27,4 @@ CREATE TABLE employee (
     FOREIGN KEY (role_id)
     REFRENCES role(id)
 );
+

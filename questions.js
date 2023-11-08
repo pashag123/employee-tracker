@@ -1,6 +1,8 @@
 const { prompt } = require("inquirer");
 const db = require("./db/connection");
+const startApp = require('./index');
 require("console.table");
+
 
 // allow async await:
 const utils = require("util");
@@ -33,4 +35,14 @@ async function addRole() {
     [role_title, role_salary, dept_id]
   );
   console.log("The new role was successfully added.");
+  startApp();
+}
+
+
+async function addDepartment() {
+    const {departments_title, } = await prompt ([
+        {
+
+        }
+    ])
 }
