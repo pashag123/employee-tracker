@@ -31,13 +31,17 @@ function startApp() {
                     addRole()
                     break;
 
-                    case 'add a department':
-                        addDepartment()
-                        break;
+                case 'add a department':
+                    addDepartment()
+                    break;
 
-                        case 'add an employee':
-                            addEmployee()
-                            break;
+                case 'add an employee':
+                    addEmployee()
+                    break;
+
+                case 'update an employee role':
+                    updateEmployee()
+                    break;
 
 
 
@@ -102,7 +106,7 @@ async function addDepartment() {
 
 async function addEmployee() {
     let managers = await db.query(
-        "select id as value, concat(first_name, ' ', last_name) as name from employee"
+        "select id as value, concat(first_name, ' ', last_name) as name from employee where manager_id is null"
     );
     let roleList = await db.query(
         "select id as value, title as name from role"
@@ -131,15 +135,46 @@ async function addEmployee() {
             message: "who is the employees manager?",
             choices: managers
         },
-    
-       
+
+
     ])
     await db.query(
         "insert into employee (first_name, last_name, role_id, manager_id) values(?, ?, ?, ?)", [answers.first_name, answers.last_name, answers.role, answers.manager]
     )
-console.log("the employee has been succesfully added")
-startApp()
+    console.log("the employee has been succesfully added")
+    startApp()
 }
+
+async function updateEmployee() {
+    let employees = await db.query(
+        "select id as value, concat(first_name, ' ', last_name) as name from employee");
+
+    let roleList = await db.query(
+        "select id as value, title as name from role"
+    );
+
+    let answers = await prompt([
+        {
+            type: "list",
+            name: "employeeChoice",
+            message: "Choose the employee you would like to update",
+            choices: employees
+        },
+        {
+            type: "list",
+            name: "role",
+            message: "What is the employees new role",
+            choices: roleList
+        },
+    ])
+    await db.query(
+        ""
+    )
+    console.log("employee updated")
+    startApp();
+}
+
+
 
 startApp();
 
