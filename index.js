@@ -44,6 +44,13 @@ function startApp() {
                     updateEmployee()
                     break;
 
+                case 'view all roles':
+                    viewAllRoles()
+                    break;
+
+                    case 'view all employees':
+                    viewAllEmployees()
+                    break;
 
 
 
@@ -57,6 +64,28 @@ function startApp() {
 async function viewAllDepartments() {
     try {
         const result = await db.query("select * from department");
+        console.table(result)
+    } catch (error) {
+        console.log(error)
+    }
+    startApp();
+
+}
+
+
+async function viewAllRoles() {
+    try {
+        const result = await db.query("select * from role");
+        console.table(result)
+    } catch (error) {
+        console.log(error)
+    }
+    startApp();
+}
+
+async function viewAllEmployees() {
+    try {
+        const result = await db.query("select * from employee");
         console.table(result)
     } catch (error) {
         console.log(error)
