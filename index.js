@@ -25,6 +25,7 @@ function startApp() {
         .then((answers) => {
             switch (answers.tableChoice) {
                 case 'view all departments':
+                    viewAllDepartments();
                     break;
 
                 case "add a role":
@@ -51,6 +52,17 @@ function startApp() {
 
             }
         })
+}
+
+async function viewAllDepartments() {
+    try {
+        const result = await db.query("select * from department");
+        console.table(result)
+    } catch (error) {
+        console.log(error)
+    }
+    startApp();
+
 }
 
 
