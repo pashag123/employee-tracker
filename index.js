@@ -75,7 +75,7 @@ async function viewAllDepartments() {
 
 async function viewAllRoles() {
     try {
-        const result = await db.query("select * from role");
+        const result = await db.query("select role.id, role.title, role.salary, department.department_name from role left join department on department.id = role.department_id");
         console.table(result)
     } catch (error) {
         console.log(error)
@@ -86,7 +86,7 @@ async function viewAllRoles() {
 async function viewAllEmployees() {
     try {
         const result = await db.query(`SELECT employee.id, employee.first_name AS "first name", employee.last_name 
-        AS "last name", role.title, department.name AS department, role.salary, 
+        AS "last name", role.title, department.department_name AS department, role.salary, 
         concat(manager.first_name, " ", manager.last_name) AS manager
         FROM employee
         LEFT JOIN role
